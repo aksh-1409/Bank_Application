@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-university"></i> Bank Management System</h1>
+            <p>Secure Banking Made Simple</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Navigation Tabs -->
+            <div class="tab-container">
+                <button class="tab-button active" onclick="showTab('create-account')">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+                <button class="tab-button" onclick="showTab('view-account')">
+                    <i class="fas fa-search"></i> View Account
+                </button>
+                <button class="tab-button" onclick="showTab('transactions')">
+                    <i class="fas fa-exchange-alt"></i> Transactions
+                </button>
+                <button class="tab-button" onclick="showTab('history')">
+                    <i class="fas fa-history"></i> History
+                </button>
+                <button class="tab-button" onclick="showTab('manage')">
+                    <i class="fas fa-cog"></i> Manage
+                </button>
+            </div>
+
+            <!-- Create Account Tab -->
+            <div id="create-account" class="tab-content active">
+                <div class="card">
+                    <h2><i class="fas fa-user-plus"></i> Create New Account</h2>
+                    <form id="create-account-form">
+                        <div class="form-group">
+                            <label for="account-name">Account Holder Name</label>
+                            <input type="text" id="account-name" required placeholder="Enter full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="initial-balance">Initial Balance</label>
+                            <input type="number" id="initial-balance" step="0.01" min="0" required placeholder="0.00">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Create Account
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- View Account Tab -->
+            <div id="view-account" class="tab-content">
+                <div class="card">
+                    <h2><i class="fas fa-search"></i> View Account Details</h2>
+                    <form id="view-account-form">
+                        <div class="form-group">
+                            <label for="view-account-id">Account ID</label>
+                            <input type="number" id="view-account-id" required placeholder="Enter account ID">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i> View Account
+                        </button>
+                    </form>
+                    
+                    <div id="account-details" class="account-info" style="display: none;">
+                        <h3>Account Information</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="label">Account ID:</span>
+                                <span id="display-account-id" class="value"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Account Holder:</span>
+                                <span id="display-account-name" class="value"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Current Balance:</span>
+                                <span id="display-account-balance" class="value balance"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transactions Tab -->
+            <div id="transactions" class="tab-content">
+                <div class="card">
+                    <h2><i class="fas fa-exchange-alt"></i> Make Transaction</h2>
+                    
+                    <div class="transaction-tabs">
+                        <button class="transaction-tab active" onclick="showTransactionTab('deposit')">
+                            <i class="fas fa-arrow-down"></i> Deposit
+                        </button>
+                        <button class="transaction-tab" onclick="showTransactionTab('withdraw')">
+                            <i class="fas fa-arrow-up"></i> Withdraw
+                        </button>
+                    </div>
+
+                    <!-- Deposit Form -->
+                    <div id="deposit-form" class="transaction-form active">
+                        <form id="deposit-transaction-form">
+                            <div class="form-group">
+                                <label for="deposit-account-id">Account ID</label>
+                                <input type="number" id="deposit-account-id" required placeholder="Enter account ID">
+                            </div>
+                            <div class="form-group">
+                                <label for="deposit-amount">Deposit Amount</label>
+                                <input type="number" id="deposit-amount" step="0.01" min="0.01" required placeholder="0.00">
+                            </div>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-arrow-down"></i> Deposit Money
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Withdraw Form -->
+                    <div id="withdraw-form" class="transaction-form">
+                        <form id="withdraw-transaction-form">
+                            <div class="form-group">
+                                <label for="withdraw-account-id">Account ID</label>
+                                <input type="number" id="withdraw-account-id" required placeholder="Enter account ID">
+                            </div>
+                            <div class="form-group">
+                                <label for="withdraw-amount">Withdrawal Amount</label>
+                                <input type="number" id="withdraw-amount" step="0.01" min="0.01" required placeholder="0.00">
+                            </div>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-arrow-up"></i> Withdraw Money
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction History Tab -->
+            <div id="history" class="tab-content">
+                <div class="card">
+                    <h2><i class="fas fa-history"></i> Transaction History</h2>
+                    <form id="history-form">
+                        <div class="form-group">
+                            <label for="history-account-id">Account ID</label>
+                            <input type="number" id="history-account-id" required placeholder="Enter account ID">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-history"></i> View History
+                        </button>
+                    </form>
+                    
+                    <div id="transaction-history" class="history-container" style="display: none;">
+                        <h3>Transaction History</h3>
+                        <div class="table-container">
+                            <table id="history-table">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="history-tbody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Management Tab -->
+            <div id="manage" class="tab-content">
+                <div class="card">
+                    <h2><i class="fas fa-cog"></i> Account Management</h2>
+                    <div class="warning-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>Warning:</strong> Deleting an account is permanent and cannot be undone.
+                    </div>
+                    
+                    <form id="delete-account-form">
+                        <div class="form-group">
+                            <label for="delete-account-id">Account ID to Delete</label>
+                            <input type="number" id="delete-account-id" required placeholder="Enter account ID">
+                        </div>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Delete Account
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Messages -->
+        <div id="message-container" class="message-container"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
