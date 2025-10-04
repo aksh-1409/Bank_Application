@@ -4,7 +4,47 @@ const API_BASE_URL = "http://localhost:8080/api";
 // DOM Elements
 document.addEventListener("DOMContentLoaded", function () {
   initializeEventListeners();
+  initializeMatrixRain();
 });
+
+// Matrix Rain Animation
+function initializeMatrixRain() {
+  const matrixContainer = document.getElementById("matrix-rain");
+  const characters = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  
+  function createMatrixColumn() {
+    const column = document.createElement("div");
+    column.className = "matrix-column";
+    column.style.left = Math.random() * 100 + "vw";
+    column.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    column.style.animationDelay = Math.random() * 2 + "s";
+    
+    // Create random characters for the column
+    let columnText = "";
+    const columnHeight = Math.floor(Math.random() * 20) + 10;
+    for (let i = 0; i < columnHeight; i++) {
+      columnText += characters.charAt(Math.floor(Math.random() * characters.length)) + "<br>";
+    }
+    column.innerHTML = columnText;
+    
+    matrixContainer.appendChild(column);
+    
+    // Remove column after animation
+    setTimeout(() => {
+      if (column.parentNode) {
+        column.parentNode.removeChild(column);
+      }
+    }, 8000);
+  }
+  
+  // Create initial columns
+  for (let i = 0; i < 50; i++) {
+    setTimeout(() => createMatrixColumn(), i * 100);
+  }
+  
+  // Continuously create new columns
+  setInterval(createMatrixColumn, 200);
+}
 
 // Initialize all event listeners
 function initializeEventListeners() {
